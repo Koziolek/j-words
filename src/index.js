@@ -3,26 +3,36 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import {createBrowserRouter, RouterProvider} from "react-router-dom";
+import {createBrowserRouter, createHashRouter, RouterProvider} from "react-router-dom";
 import ModePicker from "./components/mode/ModePicker";
 import LearnModeComponent from "./components/mode/LearnModeComponent";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
-const router = createBrowserRouter([
+const routes = [
     {
         path: '/',
-        element: <App />,
-        children:[
+        element: <App/>,
+        children: [
             {
                 path: '/',
-                element: <ModePicker />
-            },{
+                element: <ModePicker/>
+            }, {
                 path: '/nauka/:max?',
-                element: <LearnModeComponent />
+                element: <LearnModeComponent/>
             }
         ]
     }
-]);
+];
+
+const findRouter = ()=>{
+    if(process.env.PUBLIC_URL === '/j-words')
+        return  createHashRouter(routes);
+    else
+        return  createBrowserRouter(routes);
+}
+
+const router = findRouter();
+
 root.render(
   <React.StrictMode>
     <RouterProvider router={router} />

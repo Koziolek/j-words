@@ -1,6 +1,6 @@
 import {useNavigate, useParams} from "react-router-dom";
 import WordComponent from "./WordComponent";
-import {useEffect, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import './Mode.css';
 import {randomWords} from '../words/WordsService'
 import GoodBadCounter from "./GoodBadCounter";
@@ -16,10 +16,7 @@ const initialCounter = (max) => {
 }
 const initialWord = {
     pl: '',
-    hiragana: '',
-    katakana: '',
-    romanji: '',
-    pl_info: ''
+    words: []
 };
 
 const LearnModeComponent = () => {
@@ -31,7 +28,8 @@ const LearnModeComponent = () => {
     const [goodWords, setGoodWords] = useState([]);
     const [badWords, setBadWords] = useState([]);
     const [mode, setMode] = useState(true);
-    const nextWord = (b) => {
+    const inputRef = useRef(null);
+    const nextWord = (b, answer = '') => {
         if (b) {
             setCounter({
                 good: counter.good + 1,
@@ -48,7 +46,8 @@ const LearnModeComponent = () => {
                 max: counter.max,
                 current: counter.current + 1
             });
-            badWords.push(word);
+            badWords.push({...word, answer: answer});
+            console.log(badWords);
             setBadWords(badWords);
         }
         if (counter.current < counter.max - 1) {
@@ -66,10 +65,12 @@ const LearnModeComponent = () => {
                 })
         }
     }, [words, word]);
+    useEffect(() => {
+        inputRef.current?.focus();
+    }, [inputRef]);
 
     return (
         <div className='learn-component'>
-
             <h2 className='learn-component-title'>Nauka – {max} losowych słów</h2>
             {mode ?
                 <>

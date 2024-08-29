@@ -5,17 +5,15 @@ import LabeledInputComponent from "../commons/LabeledInputComponent";
 const WordComponent = ({
                            word = {
                                pl: '',
-                               hiragana: '',
-                               katakana: '',
-                               romanji: '',
-                               pl_info: ''
-                           }, action = (maybeCorrect) => {
+                               words: []
+                           }, action = (maybeCorrect, ans) => {
         if (maybeCorrect) {
-            alert('Correct!');
+            console.log('Correct!');
         } else {
-            alert('Incorrect!');
+            console.log('Incorrect! ' + ans);
         }
-    }
+    },
+                           reference = null
                        }) => {
     const [answer, setAnswer] = useState('');
     const translate = (value) => {
@@ -23,13 +21,21 @@ const WordComponent = ({
     }
     const checkAnswer = (e) => {
         e.preventDefault();
-        action(answer.trim() === word.hiragana.trim() || answer.trim() === word.katakana.trim());
+        const kana = [];
+        for (let w in word.words) {
+            kana.push(word.words[w].hiragana.trim());
+            kana.push(word.words[w].katakana.trim());
+        }
+        action(kana.includes(answer.trim()), answer.trim());
         setAnswer('');
     }
 
     return (
         <div className='word'>
-            <div className='question'>{word.pl}</div>
+            <div className='question'>
+                <div>{word.pl}</div>
+                <div className='text-xs text-center'>{word.words[0]?.pl_info}</div>
+            </div>
             <form onSubmit={checkAnswer}>
                 <LabeledInputComponent
                     value={answer}
@@ -43,7 +49,9 @@ const WordComponent = ({
                         setAnswer(translated)
                     }
                     }
+                    reference={reference}
                 />
+
             </form>
         </div>
     )

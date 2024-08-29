@@ -15,9 +15,9 @@
 }
 
 .learn-component {
-    @apply flex flex-1 flex-col min-h-full max-w-lg justify-center px-6 py-12 text-xl border-solid border-2 mx-auto;
+    @apply flex flex-1 flex-col min-h-full max-w-xl justify-center px-6 py-12 text-xl border-solid border-2 mx-auto;
     @apply sm:w-full sm:max-w-sm;
-    @apply lg:w-full lg:max-w-3xl;
+    @apply lg:w-full lg:max-w-4xl;
 }
 
 .learn-component-title {
@@ -54,4 +54,18 @@
 }
 .bad-word-result{
     @apply text-red-500;
+}
+.word-result-hiragana,
+.word-result-katakana{
+    @apply block;
+}
+
+.word-result-romanji{
+    @apply text-xs col-start-2 text-center block;
+}
+.word-result-romanji:before{
+    content: '(';
+}
+.word-result-romanji:after{
+    content: ')';
 }
