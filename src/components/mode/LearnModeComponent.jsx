@@ -1,9 +1,9 @@
+import React, {useEffect, useRef, useState} from 'react';
 import {useNavigate, useParams} from "react-router-dom";
 import WordComponent from "./WordComponent";
-import {useEffect, useRef, useState} from "react";
 import './Mode.css';
 import {randomWords} from '../words/WordsService'
-import GoodBadCounter from "./GoodBadCounter";
+import GoodBadCounter from "../counter/GoodBadCounter";
 import WordResultComponent from "./WordResultComponent";
 
 const initialCounter = (max) => {
@@ -14,75 +14,123 @@ const initialCounter = (max) => {
         current: 0
     };
 }
-const initialWord = {
-    pl: '',
-    words: []
+const initialWord = () => {
+    return {
+        pl: '',
+        words: []
+    }
 };
 
-const LearnModeComponent = () => {
-    const {max = 30} = useParams();
-    const navigate = useNavigate();
-    const [counter, setCounter] = useState(initialCounter(max));
-    const [words, setWords] = useState(null);
-    const [word, setWord] = useState(initialWord);
-    const [goodWords, setGoodWords] = useState([]);
-    const [badWords, setBadWords] = useState([]);
-    const [mode, setMode] = useState(true);
-    const inputRef = useRef(null);
-    const nextWord = (b, answer = '') => {
-        if (b) {
-            setCounter({
-                good: counter.good + 1,
-                bad: counter.bad,
-                max: counter.max,
-                current: counter.current + 1
-            });
-            goodWords.push(word)
-            setGoodWords(goodWords)
-        } else {
-            setCounter({
-                good: counter.good,
-                bad: counter.bad + 1,
-                max: counter.max,
-                current: counter.current + 1
-            });
-            badWords.push({...word, answer: answer});
-            console.log(badWords);
-            setBadWords(badWords);
-        }
-        if (counter.current < counter.max - 1) {
-            setWord(words[counter.current + 1]);
-        } else {
-            setMode(false);
-        }
+const initialState = () => {
+    return {
+        counter: initialCounter(0),
+        words: [],
+        word: initialWord(),
+        goodWords: [],
+        badWords: [],
+        mode: true
+    };
+}
+
+const nextState = ({currentState, isCorrectAnswer, answer}) => {
+    const newState = {...currentState};
+    if (isCorrectAnswer) {
+        newState.counter.good += 1;
+        newState.goodWords.push(newState.word);
+    } else {
+        newState.counter.bad += 1;
+        newState.badWords.push({...newState.word, answer});
     }
+    if (newState.counter.current < newState.counter.max - 1) {
+        newState.word = newState.words[newState.counter.current + 1];
+        newState.counter.current += 1;
+    } else {
+        newState.mode = false;
+    }
+    return newState;
+}
+
+const initialise = async (dataLoader) => {
+    return dataLoader()
+        .then(data => {
+            const newState = {...initialState()};
+            newState.counter = {
+                good: 0,
+                bad: 0,
+                max: data.length,
+                current: 0
+            }
+            newState.words = data;
+            newState.word = newState.words[0]
+            return newState;
+        });
+}
+
+const badWordsState = (currentState) => {
+    const newState = {...currentState};
+    newState.counter = {
+        good: 0,
+        bad: 0,
+        max: currentState.badWords.length,
+        current: 0
+    };
+    newState.words = currentState.badWords.map(w => {
+        delete w.answer;
+        return w;
+    });
+    newState.word = newState.words[0];
+    newState.badWords = [];
+    newState.goodWords = [];
+    newState.mode = true;
+
+    return newState;
+}
+
+const LearnModeComponent = () => {
+    const {max = 15} = useParams();
+    const navigate = useNavigate();
+    const [state, setState] = useState(initialState());
+    const inputRef = useRef(null);
+    const nextWord = (maybeCorrect, answer = '') =>
+        setState(nextState({
+            currentState: state,
+            isCorrectAnswer: maybeCorrect,
+            answer: answer
+        }));
     useEffect(() => {
-        if (words == null) {
-            randomWords(max)
-                .then(res => {
-                    setWords(res);
-                    setWord(res[counter.current])
-                })
+        if (state.words.length === 0) {
+            initialise(() => randomWords({count: max}))
+                .then(data => setState(data));
         }
-    }, [words, word]);
-    useEffect(() => {
         inputRef.current?.focus();
-    }, [inputRef]);
+    }, []);
 
     return (
         <div className='learn-component'>
             <h2 className='learn-component-title'>Nauka – {max} losowych słów</h2>
-            {mode ?
+            {state.mode ?
                 <>
-                    <WordComponent word={word} action={nextWord}/>
-                    <GoodBadCounter good={counter.good} bad={counter.bad} max={counter.max}/>
+                    <WordComponent word={state.word} action={nextWord} reference={inputRef}/>
+                    <GoodBadCounter good={state.counter.good} bad={state.counter.bad} max={state.counter.max}/>
                 </>
                 :
-                <WordResultComponent badWords={badWords} goodWords={goodWords}/>
+                <>
+                    <WordResultComponent badWords={state.badWords} goodWords={state.goodWords}/>
+                    {state.badWords.length > 0 ?
+                        <button onClick={() => setState(badWordsState(state))} className='mode-button button-blue'>Popraw</button> : <></>}
+                </>
+
             }
-            <button onClick={(e) => navigate('/')}>Powrót</button>
+            <button onClick={() => {
+                setState(initialState());
+                navigate('/');
+            }} className='mode-button button-red'>Powrót
+            </button>
         </div>
     );
 }
 
+export const exportForTesting = {
+    nextState, initialise, badWordsState
+};
 export default LearnModeComponent;

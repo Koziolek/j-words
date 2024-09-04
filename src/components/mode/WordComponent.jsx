@@ -1,6 +1,8 @@
+import React from 'react';
 import {useState} from "react";
 import {toKana} from "wanakana";
 import LabeledInputComponent from "../commons/LabeledInputComponent";
+import PropTypes from "prop-types";
 
 const WordComponent = ({
                            word = {
@@ -21,12 +23,17 @@ const WordComponent = ({
     }
     const checkAnswer = (e) => {
         e.preventDefault();
+        if(answer.trim() === '') {
+            action(false, answer.trim());
+            setAnswer('');
+            return;
+        }
         const kana = [];
         for (let w in word.words) {
-            kana.push(word.words[w].hiragana.trim());
-            kana.push(word.words[w].katakana.trim());
+            kana.push(word.words[w].hiragana.replaceAll(' ', '').trim());
+            kana.push(word.words[w].katakana.replaceAll(' ', '').trim());
         }
-        action(kana.includes(answer.trim()), answer.trim());
+        action(kana.includes(answer.replaceAll(' ', '').trim()), answer.trim());
         setAnswer('');
     }
 
@@ -56,5 +63,19 @@ const WordComponent = ({
         </div>
     )
 }
+
+
+WordComponent.propTypes = {
+    word: PropTypes.shape({
+        pl: PropTypes.string,
+        words: PropTypes.arrayOf(PropTypes.shape({
+            hiragana: PropTypes.string,
+            katakana: PropTypes.string,
+            pl_info: PropTypes.string,
+        })),
+    }).isRequired,
+    action: PropTypes.func,
+    reference: PropTypes.oneOfType([PropTypes.func, PropTypes.shape({ current: PropTypes.any })]),
+};
 
 export default WordComponent;

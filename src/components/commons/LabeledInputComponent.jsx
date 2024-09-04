@@ -1,6 +1,8 @@
-import React from "react";
+import React from 'react';
 import './commons.css';
-const LabeledInputComponent = ({id, type, text, placeholder, value, action, reference = null, onEnter = (e)=>{}}) => {
+import PropTypes from "prop-types";
+
+const LabeledInputComponent = ({id, type, text, placeholder, value, action, reference = null, onEnter = (e) => e}) => {
 
     return (
         <div>
@@ -9,10 +11,21 @@ const LabeledInputComponent = ({id, type, text, placeholder, value, action, refe
                    placeholder={placeholder} value={value}
                    onChange={action}
                    ref={reference}
-                   onKeyUp={(e)=> e.key === 'Enter' ? onEnter(e): null}
+                   onKeyUp={(e) => e.key === 'Enter' ? onEnter(e) : null}
             />
         </div>
     );
 }
+
+LabeledInputComponent.propTypes = {
+    id: PropTypes.string.isRequired,
+    type: PropTypes.string.isRequired,
+    text: PropTypes.string.isRequired,
+    placeholder: PropTypes.string,
+    value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    action: PropTypes.func.isRequired,
+    reference: PropTypes.oneOfType([PropTypes.func, PropTypes.shape({ current: PropTypes.any })]),
+    onEnter: PropTypes.func,
+};
 
 export default LabeledInputComponent;

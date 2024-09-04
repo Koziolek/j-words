@@ -1,13 +1,14 @@
+import React from 'react';
 import {useNavigate} from "react-router-dom";
-import './Mode.css';
 import {useEffect, useRef, useState} from "react";
 import LabeledInputComponent from "../commons/LabeledInputComponent";
 import HelpComponent from "../help/HelpComponent";
+import './Mode.css';
 
 const ModePicker = () => {
     const navigate = useNavigate();
     const inputRef = useRef(null);
-    const [max, setMax] = useState('30');
+    const [max, setMax] = useState('15');
     useEffect(() => {
         inputRef.current?.focus();
     }, [inputRef]);
@@ -24,7 +25,7 @@ const ModePicker = () => {
                                    action={(e) => setMax(e.target.value)}
                                    onEnter={() => startLesson()}
             />
-            <button onClick={(e) => startLesson()} className='mode-button button-indigo'>Tryb Nauki</button>
+            <button onClick={() => startLesson()} className='mode-button button-indigo'>Tryb Nauki</button>
             <HelpComponent />
         </div>
     );

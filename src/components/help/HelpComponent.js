@@ -13,8 +13,14 @@ const HelpComponent = () => {
     return (
         <div>
             <button onClick={(e) => handleOpen(!open)}>Pomoc</button>
-            <Modal isOpen={open}>
-                <div className='flex justify-between shadow-inner'>
+            <Modal isOpen={open}
+                   style={{
+                       content: {
+                           width: '80em',
+                           margin: 'auto'
+                       }
+                   }}>
+                <div className='flex justify-between shadow-inner '>
                     <h2 className='inline-block self-center text-3xl text-center w-full'>Instrukcja</h2>
                     <button type="button"
                             className="close-button text-xl align-center cursor-pointer alert-del"
@@ -35,6 +41,7 @@ const HelpComponent = () => {
                     <h3>Wpisywanie odpowiedzi</h3>
                     <p>Żeby uzyskać znaki hiraganą pisz małe litery, katakaną wielkie. Słowa mają tylko jedną wersję, więc jak użyjesz złego alfabetu,
                         to będzie to błąd.</p>
+                    <p>Jeżeli korzystasz z telefonu komórkowego, to pamiętaj, że domyślnie pierwsza litera w tekście jest wielka</p>
                     <p>Żeby wpisać głoskę ん, to po wpisaniu n naciśnij spację.</p>
                     <p>Lista z wynikami zawiera dobre i złe odpowiedzi. W przypadku złych podana jest twoja odpowiedź.</p>
                     <p>Jeżeli jakieś słowo ma kilka wersji w języku japońskim np. długopis ぺん i ぼおるぺん, to możesz podać jedną.</p>
