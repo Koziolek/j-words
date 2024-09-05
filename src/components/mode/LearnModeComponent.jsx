@@ -103,7 +103,7 @@ const LearnModeComponent = () => {
                 .then(data => setState(data));
         }
         inputRef.current?.focus();
-    }, []);
+    }, [state.words.length, max]);
 
     return (
         <div className='learn-component'>

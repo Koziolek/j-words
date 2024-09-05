@@ -5,6 +5,7 @@ const validParts = [
     'zaimek',
     'liczebnik',
     'przysłówek',
+    'partykuła',
 ]
 
 const speechPartFilter = (word = {
@@ -28,6 +29,7 @@ export const adjectiveFilter = (word) => speechPartFilter(word, 'przymiotnik')
 export const pronounFilter = (word) => speechPartFilter(word, 'zaimek')
 export const numeralFilter = (word) => speechPartFilter(word, 'liczebnik')
 export const adverbFilter = (word) => speechPartFilter(word, 'przysłówek')
+export const particleFilter = (word) => speechPartFilter(word, 'partykuła')
 
 export const exportForTesting = {
     speechPartFilter

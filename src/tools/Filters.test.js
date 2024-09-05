@@ -1,4 +1,4 @@
-import {adjectiveFilter, adverbFilter, exportForTesting, nounFilter, numeralFilter, pronounFilter, verbFilter} from "./Filters";
+import {adjectiveFilter, adverbFilter, exportForTesting, nounFilter, numeralFilter, particleFilter, pronounFilter, verbFilter} from "./Filters";
 
 const words = [
     {part: 'czasownik'},
@@ -7,6 +7,7 @@ const words = [
     {part: 'zaimek'},
     {part: 'liczebnik'},
     {part: 'przysłówek'},
+    {part: 'partykuła'},
 ]
 
 test('Should Filter Speech part', () => {
@@ -16,6 +17,7 @@ test('Should Filter Speech part', () => {
     expect(words.filter(pronounFilter).length).toBe(1);
     expect(words.filter(numeralFilter).length).toBe(1);
     expect(words.filter(adverbFilter).length).toBe(1);
+    expect(words.filter(particleFilter).length).toBe(1);
 })
 
 test('Should throw on unsupported part', () =>{
