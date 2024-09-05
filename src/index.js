@@ -14,14 +14,14 @@ const routes = [
     children: [
       {
         path: '/',
-        element: <ModePicker />
+        element: <ModePicker />,
       },
       {
         path: '/nauka/:max?',
-        element: <LearnModeComponent />
-      }
-    ]
-  }
+        element: <LearnModeComponent />,
+      },
+    ],
+  },
 ];
 
 const findRouter = () => {

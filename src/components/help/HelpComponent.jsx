@@ -20,17 +20,15 @@ const HelpComponent = () => {
         style={{
           content: {
             width: '80em',
-            margin: 'auto'
-          }
-        }}
-      >
+            margin: 'auto',
+          },
+        }}>
         <div className="flex justify-between shadow-inner ">
           <h2 className="inline-block self-center text-3xl text-center w-full">Instrukcja</h2>
           <button
             type="button"
             className="close-button text-xl align-center cursor-pointer alert-del"
-            onClick={handleOpen}
-          >
+            onClick={handleOpen}>
             <span className="sr-only">Zamknij</span>
             <img src={close} alt="close" />
           </button>

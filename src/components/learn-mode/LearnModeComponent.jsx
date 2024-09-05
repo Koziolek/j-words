@@ -11,13 +11,13 @@ const initialCounter = (max) => {
     good: 0,
     bad: 0,
     max: max,
-    current: 0
+    current: 0,
   };
 };
 const initialWord = () => {
   return {
     pl: '',
-    words: []
+    words: [],
   };
 };
 
@@ -28,7 +28,7 @@ const initialState = () => {
     word: initialWord(),
     goodWords: [],
     badWords: [],
-    mode: true
+    mode: true,
   };
 };
 
@@ -57,7 +57,7 @@ const initialise = async (dataLoader) => {
       good: 0,
       bad: 0,
       max: data.length,
-      current: 0
+      current: 0,
     };
     newState.words = data;
     newState.word = newState.words[0];
@@ -71,7 +71,7 @@ const badWordsState = (currentState) => {
     good: 0,
     bad: 0,
     max: currentState.badWords.length,
-    current: 0
+    current: 0,
   };
   newState.words = currentState.badWords.map((w) => {
     delete w.answer;
@@ -95,7 +95,7 @@ const LearnModeComponent = () => {
       nextState({
         currentState: state,
         isCorrectAnswer: maybeCorrect,
-        answer: answer
+        answer: answer,
       })
     );
   useEffect(() => {
@@ -123,8 +123,7 @@ const LearnModeComponent = () => {
           {state.badWords.length > 0 ? (
             <button
               onClick={() => setState(badWordsState(state))}
-              className="mode-button button-blue"
-            >
+              className="mode-button button-blue">
               Popraw
             </button>
           ) : (
@@ -137,8 +136,7 @@ const LearnModeComponent = () => {
           setState(initialState());
           navigate('/');
         }}
-        className="mode-button button-red"
-      >
+        className="mode-button button-red">
         Powrót
       </button>
     </div>
@@ -148,6 +146,6 @@ const LearnModeComponent = () => {
 export const exportForTesting = {
   nextState,
   initialise,
-  badWordsState
+  badWordsState,
 };
 export default LearnModeComponent;

@@ -3,7 +3,7 @@ import { readString } from 'react-papaparse';
 const transformCsvToJson = (text) => {
   let duplex = readString(text, {
     header: true,
-    complete(results) {}
+    complete(results) {},
   });
 
   return duplex.data;
@@ -14,8 +14,8 @@ const loadWords = async () => {
     method: 'get',
     mode: 'cors',
     headers: {
-      'content-type': 'text/csv;charset=UTF-8'
-    }
+      'content-type': 'text/csv;charset=UTF-8',
+    },
   });
   const words = await res.text();
   return transformCsvToJson(words);
@@ -34,7 +34,7 @@ const groupWords = (words) => {
   for (const k in reduce) {
     wordGroups.push({
       pl: k,
-      words: reduce[k]
+      words: reduce[k],
     });
   }
   return wordGroups;
@@ -56,7 +56,7 @@ export const randomWords = async ({
   filter = (word) => true,
   loader = loadWords,
   reducer = groupWords,
-  picker = randomPicker
+  picker = randomPicker,
 }) => {
   return loader()
     .then((data) => data.filter(filter))
@@ -67,5 +67,5 @@ export const randomWords = async ({
 export const exportForTesting = {
   transformCsvToJson,
   groupWords,
-  loadWords
+  loadWords,
 };

@@ -5,7 +5,7 @@ const validParts = [
   'zaimek',
   'liczebnik',
   'przysłówek',
-  'partykuła'
+  'partykuła',
 ];
 
 const speechPartFilter = (
@@ -17,7 +17,7 @@ const speechPartFilter = (
     katakana: '',
     kanji: '',
     group: '',
-    pl_info: ''
+    pl_info: '',
   },
   part = ''
 ) => {
@@ -35,5 +35,5 @@ export const adverbFilter = (word) => speechPartFilter(word, 'przysłówek');
 export const particleFilter = (word) => speechPartFilter(word, 'partykuła');
 
 export const exportForTesting = {
-  speechPartFilter
+  speechPartFilter,
 };

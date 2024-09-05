@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 const QueryWordComponent = ({
   word = {
     pl: '',
-    words: []
+    words: [],
   },
   action = (maybeCorrect, ans) => {
     if (maybeCorrect) {
@@ -16,7 +16,7 @@ const QueryWordComponent = ({
       console.log('Incorrect! ' + ans);
     }
   },
-  reference = null
+  reference = null,
 }) => {
   const [answer, setAnswer] = useState('');
   const translate = (value) => {
@@ -70,12 +70,12 @@ QueryWordComponent.propTypes = {
       PropTypes.shape({
         hiragana: PropTypes.string,
         katakana: PropTypes.string,
-        pl_info: PropTypes.string
+        pl_info: PropTypes.string,
       })
-    )
+    ),
   }).isRequired,
   action: PropTypes.func,
-  reference: PropTypes.oneOfType([PropTypes.func, PropTypes.shape({ current: PropTypes.any })])
+  reference: PropTypes.oneOfType([PropTypes.func, PropTypes.shape({ current: PropTypes.any })]),
 };
 
 export default QueryWordComponent;

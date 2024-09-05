@@ -18,7 +18,7 @@ const testData = [
     katakana: '',
     kanji: '車',
     group: '',
-    pl_info: ''
+    pl_info: '',
   },
   {
     pl: 'babcia',
@@ -28,7 +28,7 @@ const testData = [
     katakana: '',
     kanji: '祖母',
     group: '',
-    pl_info: ''
+    pl_info: '',
   },
   {
     pl: 'bank',
@@ -38,8 +38,8 @@ const testData = [
     katakana: '',
     kanji: '銀行',
     group: '',
-    pl_info: ''
-  }
+    pl_info: '',
+  },
 ];
 const loadedWords = [
   {
@@ -53,9 +53,9 @@ const loadedWords = [
         katakana: '',
         kanji: '車',
         group: '',
-        pl_info: ''
-      }
-    ]
+        pl_info: '',
+      },
+    ],
   },
   {
     pl: 'babcia',
@@ -68,9 +68,9 @@ const loadedWords = [
         katakana: '',
         kanji: '祖母',
         group: '',
-        pl_info: ''
-      }
-    ]
+        pl_info: '',
+      },
+    ],
   },
   {
     pl: 'bank',
@@ -83,10 +83,10 @@ const loadedWords = [
         katakana: '',
         kanji: '銀行',
         group: '',
-        pl_info: ''
-      }
-    ]
-  }
+        pl_info: '',
+      },
+    ],
+  },
 ];
 describe('State transformer', () => {
   test('Should initial state be set', async () => {
@@ -100,13 +100,13 @@ describe('State transformer', () => {
         good: 0,
         bad: 0,
         max: 3,
-        current: 0
+        current: 0,
       },
       words: testData,
       word: testData[0],
       goodWords: [],
       badWords: [],
-      mode: true
+      mode: true,
     });
   });
 
@@ -117,13 +117,13 @@ describe('State transformer', () => {
         good: 0,
         bad: 0,
         max: 3,
-        current: 0
+        current: 0,
       },
       words: testData,
       word: testData[0],
       goodWords: [],
       badWords: [],
-      mode: true
+      mode: true,
     };
     const isCorrectAnswer = true;
     const answer = 'くるま';
@@ -132,13 +132,13 @@ describe('State transformer', () => {
         good: 1,
         bad: 0,
         max: 3,
-        current: 1
+        current: 1,
       },
       words: testData,
       word: testData[1],
       goodWords: [testData[0]],
       badWords: [],
-      mode: true
+      mode: true,
     };
     const newState = nextState({ currentState, isCorrectAnswer, answer });
     expect(newState).toEqual(expectedState);
@@ -151,13 +151,13 @@ describe('State transformer', () => {
         good: 0,
         bad: 0,
         max: 3,
-        current: 0
+        current: 0,
       },
       words: testData,
       word: testData[0],
       goodWords: [],
       badWords: [],
-      mode: true
+      mode: true,
     };
     const isCorrectAnswer = false;
     const answer = 'くる';
@@ -166,13 +166,13 @@ describe('State transformer', () => {
         good: 0,
         bad: 1,
         max: 3,
-        current: 1
+        current: 1,
       },
       words: testData,
       word: testData[1],
       goodWords: [],
       badWords: [{ ...testData[0], answer: answer }],
-      mode: true
+      mode: true,
     };
     const newState = nextState({ currentState, isCorrectAnswer, answer });
     expect(newState).toEqual(expectedState);
@@ -185,29 +185,29 @@ describe('State transformer', () => {
         good: 1,
         bad: 2,
         max: 3,
-        current: 3
+        current: 3,
       },
       words: testData,
       word: testData[2],
       goodWords: [],
       badWords: [
         { ...testData[0], answer: 'くる' },
-        { ...testData[1], answer: 'くる' }
+        { ...testData[1], answer: 'くる' },
       ],
-      mode: false
+      mode: false,
     };
     const expectedState = {
       counter: {
         good: 0,
         bad: 0,
         max: 2,
-        current: 0
+        current: 0,
       },
       words: [testData[0], testData[1]],
       word: testData[0],
       goodWords: [],
       badWords: [],
-      mode: true
+      mode: true,
     };
     const newState = badWordsState(currentState);
     expect(newState).toEqual(expectedState);
@@ -225,7 +225,7 @@ describe('Component UI', () => {
     jest.spyOn(global, 'fetch').mockImplementation(() =>
       Promise.resolve({
         ok: true,
-        text: () => Promise.resolve(testCSV)
+        text: () => Promise.resolve(testCSV),
       })
     );
     await act(() =>
@@ -244,7 +244,7 @@ describe('Component UI', () => {
     jest.spyOn(global, 'fetch').mockImplementation(() =>
       Promise.resolve({
         ok: true,
-        text: () => Promise.resolve(testCSV)
+        text: () => Promise.resolve(testCSV),
       })
     );
     await act(() =>
@@ -263,7 +263,7 @@ describe('Component UI', () => {
     jest.spyOn(global, 'fetch').mockImplementation(() =>
       Promise.resolve({
         ok: true,
-        text: () => Promise.resolve(testCSV)
+        text: () => Promise.resolve(testCSV),
       })
     );
     const wordService = require('../word/WordsService');

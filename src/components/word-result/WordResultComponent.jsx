@@ -84,14 +84,14 @@ const WordResultComponent = ({ goodWords = [], badWords = [] }) => {
 
 OptionalWordView.propTypes = {
   text: PropTypes.string,
-  prefix: PropTypes.string
+  prefix: PropTypes.string,
 };
 WordView.propTypes = {
   pl: PropTypes.string,
   kana: PropTypes.string,
   romanji: PropTypes.string,
   kanji: PropTypes.string,
-  internalTag: PropTypes.string
+  internalTag: PropTypes.string,
 };
 WordForms.propTypes = {
   words: PropTypes.arrayOf(
@@ -100,11 +100,11 @@ WordForms.propTypes = {
       katakana: PropTypes.string,
       kanji: PropTypes.string,
       romanji: PropTypes.string,
-      pl: PropTypes.string
+      pl: PropTypes.string,
     })
   ),
   wrapperTag: PropTypes.string,
-  internalTag: PropTypes.string
+  internalTag: PropTypes.string,
 };
 WordResult.propTypes = {
   word: PropTypes.shape({
@@ -116,11 +116,11 @@ WordResult.propTypes = {
         katakana: PropTypes.string,
         kanji: PropTypes.string,
         romanji: PropTypes.string,
-        pl: PropTypes.string
+        pl: PropTypes.string,
       })
-    )
+    ),
   }).isRequired,
-  mode: PropTypes.oneOf(['good', 'bad']).isRequired
+  mode: PropTypes.oneOf(['good', 'bad']).isRequired,
 };
 WordResultComponent.propTypes = {
   goodWords: PropTypes.arrayOf(
@@ -133,9 +133,9 @@ WordResultComponent.propTypes = {
           katakana: PropTypes.string,
           kanji: PropTypes.string,
           romanji: PropTypes.string,
-          pl: PropTypes.string
+          pl: PropTypes.string,
         })
-      )
+      ),
     })
   ),
   badWords: PropTypes.arrayOf(
@@ -148,11 +148,11 @@ WordResultComponent.propTypes = {
           katakana: PropTypes.string,
           kanji: PropTypes.string,
           romanji: PropTypes.string,
-          pl: PropTypes.string
+          pl: PropTypes.string,
         })
-      )
+      ),
     })
-  )
+  ),
 };
 
 export default WordResultComponent;

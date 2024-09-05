@@ -16,7 +16,7 @@ GoodBadCounter.propTypes = {
   good: PropTypes.number.isRequired,
   bad: PropTypes.number.isRequired,
   max: PropTypes.number.isRequired,
-  separator: PropTypes.string
+  separator: PropTypes.string,
 };
 
 export default GoodBadCounter;

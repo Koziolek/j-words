@@ -6,7 +6,7 @@ import {
   numeralFilter,
   particleFilter,
   pronounFilter,
-  verbFilter
+  verbFilter,
 } from './Filters';
 
 const words = [
@@ -16,7 +16,7 @@ const words = [
   { part: 'zaimek' },
   { part: 'liczebnik' },
   { part: 'przysłówek' },
-  { part: 'partykuła' }
+  { part: 'partykuła' },
 ];
 
 test('Should Filter Speech part', () => {

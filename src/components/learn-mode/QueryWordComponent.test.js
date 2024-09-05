@@ -13,9 +13,9 @@ const word = {
       katakana: '',
       kanji: '車',
       group: '',
-      pl_info: 'samochód'
-    }
-  ]
+      pl_info: 'samochód',
+    },
+  ],
 };
 
 describe('Should query stuff works', () => {

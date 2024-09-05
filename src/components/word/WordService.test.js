@@ -15,7 +15,7 @@ const testData = [
     katakana: '',
     kanji: '車',
     group: '',
-    pl_info: ''
+    pl_info: '',
   },
   {
     pl: 'babcia',
@@ -25,7 +25,7 @@ const testData = [
     katakana: '',
     kanji: '祖母',
     group: '',
-    pl_info: ''
+    pl_info: '',
   },
   {
     pl: 'bank',
@@ -35,8 +35,8 @@ const testData = [
     katakana: '',
     kanji: '銀行',
     group: '',
-    pl_info: ''
-  }
+    pl_info: '',
+  },
 ];
 const fakeLoader = async () => {
   return testData;
@@ -56,7 +56,7 @@ test('Should apply filter on data', () => {
   randomWords({
     count: 3,
     filter: (word) => word.pl === 'auto',
-    loader: fakeLoader
+    loader: fakeLoader,
   }).then((data) => expect(data.length).toBe(1));
 });
 
@@ -71,7 +71,7 @@ test('Should group worlds by pl', () => {
       katakana: 'ボオルペン',
       kanji: '',
       group: '',
-      pl_info: ''
+      pl_info: '',
     },
     {
       pl: 'długopis',
@@ -81,7 +81,7 @@ test('Should group worlds by pl', () => {
       katakana: 'ペン',
       kanji: '',
       group: '',
-      pl_info: ''
+      pl_info: '',
     },
     {
       pl: 'bank',
@@ -91,8 +91,8 @@ test('Should group worlds by pl', () => {
       katakana: '',
       kanji: '銀行',
       group: '',
-      pl_info: ''
-    }
+      pl_info: '',
+    },
   ];
   const result = groupWords(words);
   expect(result).toEqual([
@@ -107,7 +107,7 @@ test('Should group worlds by pl', () => {
           katakana: 'ボオルペン',
           kanji: '',
           group: '',
-          pl_info: ''
+          pl_info: '',
         },
         {
           pl: 'długopis',
@@ -117,9 +117,9 @@ test('Should group worlds by pl', () => {
           katakana: 'ペン',
           kanji: '',
           group: '',
-          pl_info: ''
-        }
-      ]
+          pl_info: '',
+        },
+      ],
     },
     {
       pl: 'bank',
@@ -132,10 +132,10 @@ test('Should group worlds by pl', () => {
           katakana: '',
           kanji: '銀行',
           group: '',
-          pl_info: ''
-        }
-      ]
-    }
+          pl_info: '',
+        },
+      ],
+    },
   ]);
 });
 describe('Communication test', () => {
@@ -145,7 +145,7 @@ describe('Communication test', () => {
     jest.spyOn(global, 'fetch').mockImplementation(() =>
       Promise.resolve({
         ok: true,
-        text: () => Promise.resolve(testCSV)
+        text: () => Promise.resolve(testCSV),
       })
     );
     const { loadWords } = exportForTesting;
