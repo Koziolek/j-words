@@ -1,0 +1,13 @@
+.learn-component {
+  @apply flex flex-1 flex-col min-h-full max-w-xl justify-center px-6 py-12 text-xl border-solid border-2 mx-auto;
+  @apply sm:w-full sm:max-w-sm;
+  @apply lg:w-full lg:max-w-4xl;
+}
+
+.learn-component-title {
+  @apply text-2xl text-center mb-3;
+}
+
+.question {
+  @apply text-center text-3xl font-bold my-6;
+}

@@ -2,34 +2,32 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
-import reportWebVitals from './reportWebVitals';
-import {createBrowserRouter, createHashRouter, RouterProvider} from "react-router-dom";
-import ModePicker from "./components/mode/ModePicker";
-import LearnModeComponent from "./components/mode/LearnModeComponent";
+import { createBrowserRouter, createHashRouter, RouterProvider } from 'react-router-dom';
+import ModePicker from './components/mode/ModePicker';
+import LearnModeComponent from './components/learn-mode/LearnModeComponent';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 const routes = [
-    {
+  {
+    path: '/',
+    element: <App />,
+    children: [
+      {
         path: '/',
-        element: <App/>,
-        children: [
-            {
-                path: '/',
-                element: <ModePicker/>
-            }, {
-                path: '/nauka/:max?',
-                element: <LearnModeComponent/>
-            }
-        ]
-    }
+        element: <ModePicker />
+      },
+      {
+        path: '/nauka/:max?',
+        element: <LearnModeComponent />
+      }
+    ]
+  }
 ];
 
-const findRouter = ()=>{
-    if(process.env.PUBLIC_URL === '/j-words')
-        return  createHashRouter(routes);
-    else
-        return  createBrowserRouter(routes);
-}
+const findRouter = () => {
+  if (process.env.PUBLIC_URL === '/j-words') return createHashRouter(routes);
+  else return createBrowserRouter(routes);
+};
 
 const router = findRouter();
 
@@ -42,4 +40,4 @@ root.render(
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+// reportWebVitals(console.log);

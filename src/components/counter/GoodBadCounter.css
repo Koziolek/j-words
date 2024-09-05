@@ -1,15 +1,14 @@
-
-.counter{
-    @apply text-center text-xs;
+.counter {
+  @apply text-center text-xs;
 }
 .counter-current,
-.counter-good{
-    @apply text-green-500;
+.counter-good {
+  @apply text-green-500;
 }
-.counter-bad{
-    @apply text-red-500;
+.counter-bad {
+  @apply text-red-500;
 }
 
-.counter-max{
-    @apply text-blue-500;
+.counter-max {
+  @apply text-blue-500;
 }

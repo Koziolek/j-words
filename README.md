@@ -1,1 +1,1 @@
-[here](https://koziolek.github.io/j-words/) 
+[here](https://koziolek.github.io/j-words/)

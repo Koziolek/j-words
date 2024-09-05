@@ -1,0 +1,18 @@
+.word-result {
+  @apply grid grid-cols-2 text-center mt-2;
+}
+.word-result h2 {
+  @apply font-bold;
+}
+.good-word-result {
+  @apply grid-cols-1 text-green-500;
+}
+.bad-word-result {
+  @apply text-red-500;
+}
+.word-result-kana {
+  @apply block;
+}
+.word-result-romanji {
+  @apply text-xs col-start-2 text-center block;
+}

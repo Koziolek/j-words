@@ -1,6 +1,9 @@
-.header{
-    @apply text-black p-4 shadow-md flex items-center justify-between;
+body {
+  @apply container mx-auto h-full;
+}
+.header {
+  @apply text-black p-4 shadow-md flex items-center justify-between;
 }
 .app {
-    @apply mx-1
+  @apply mx-1;
 }

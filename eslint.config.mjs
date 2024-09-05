@@ -3,6 +3,7 @@ import pluginJs from "@eslint/js";
 import pluginReact from "eslint-plugin-react";
 import pluginJest from "eslint-plugin-jest";
 import babelParser from "@babel/eslint-parser";
+import eslintPluginPrettier from "eslint-plugin-prettier";
 
 export default [
     {
@@ -26,12 +27,14 @@ export default [
             js: pluginJs,
             react: pluginReact,
             jest: pluginJest,
+            prettier: eslintPluginPrettier
         },
 
         rules: {
             ...pluginJs.configs.recommended.rules,
             ...pluginReact.configs.flat.recommended.rules,
             ...pluginJest.configs.recommended.rules,
+            ...eslintPluginPrettier.configs.recommended.rules,
         },
 
         settings: {

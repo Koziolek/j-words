@@ -1,9 +1,21 @@
 .commons-label {
-    @apply text-center block text-sm font-medium leading-6 text-gray-900;
+  @apply text-center block text-sm font-medium leading-6 text-gray-900;
 }
 
 .commons-input {
-    @apply block text-3xl text-center w-full rounded-md border-0 py-1.5 my-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-1 focus:ring-inset focus:ring-indigo-600;
-    @apply sm:text-sm sm:leading-6;
-    @apply lg:text-5xl;
+  @apply block text-3xl text-center w-full rounded-md border-0 py-1.5 my-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-1 focus:ring-inset focus:ring-indigo-600;
+  @apply sm:text-sm sm:leading-6;
+  @apply lg:text-5xl;
+}
+
+.button-indigo {
+  @apply bg-indigo-600 hover:bg-indigo-500  focus-visible:outline-indigo-600;
+}
+
+.button-blue {
+  @apply bg-blue-600 hover:bg-blue-500  focus-visible:outline-blue-600;
+}
+
+.button-red {
+  @apply bg-red-600 hover:bg-red-500  focus-visible:outline-red-600;
 }
