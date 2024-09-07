@@ -8,7 +8,7 @@ const LabeledInputComponent = ({
   text,
   placeholder,
   value,
-  action,
+  onChange,
   reference = null,
   onEnter = null,
 }) => {
@@ -23,7 +23,7 @@ const LabeledInputComponent = ({
         id={id}
         placeholder={placeholder}
         value={value}
-        onChange={action}
+        onChange={onChange}
         ref={reference}
         onKeyUp={(e) => (e.key === 'Enter' ? (onEnter ? onEnter(e) : null) : null)}
       />
@@ -37,7 +37,7 @@ LabeledInputComponent.propTypes = {
   text: PropTypes.string.isRequired,
   placeholder: PropTypes.string,
   value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  action: PropTypes.func.isRequired,
+  onChange: PropTypes.func.isRequired,
   reference: PropTypes.oneOfType([PropTypes.func, PropTypes.shape({ current: PropTypes.any })]),
   onEnter: PropTypes.func,
 };

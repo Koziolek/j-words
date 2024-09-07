@@ -10,7 +10,7 @@ describe('Labeled input tests', () => {
     const dom = await act(() => {
       return render(
         <LabeledInputComponent
-          action={action}
+          onChange={action}
           id="iden"
           text="label text"
           type="text"
@@ -34,7 +34,7 @@ describe('Labeled input tests', () => {
     const dom = await act(() => {
       return render(
         <LabeledInputComponent
-          action={action}
+          onChange={action}
           id="iden"
           text="label text"
           type="text"
@@ -56,7 +56,7 @@ describe('Labeled input tests', () => {
     const dom = await act(() => {
       return render(
         <LabeledInputComponent
-          action={action}
+          onChange={action}
           id="iden"
           text="label text"
           type="text"

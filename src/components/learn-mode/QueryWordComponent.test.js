@@ -9,8 +9,7 @@ const word = {
       pl: 'auto',
       romanji: 'kuruma',
       part: 'rzeczownik',
-      hiragana: 'くるま',
-      katakana: '',
+      kana: 'くるま',
       kanji: '車',
       group: '',
       pl_info: 'samochód',
@@ -39,7 +38,7 @@ describe('Should query stuff works', () => {
   test('Should be incorrect on empty answer', async () => {
     const action = jest.fn();
     const dom = await act(() => {
-      return render(<QueryWordComponent word={word} action={action} />);
+      return render(<QueryWordComponent word={word} postAnswerHandler={action} />);
     });
     expect(screen.getByText(/auto/i)).toBeInTheDocument();
     expect(screen.getByText(/samochód/i)).toBeInTheDocument();
@@ -53,7 +52,7 @@ describe('Should query stuff works', () => {
   test('Should be incorrect on bad answer', async () => {
     const action = jest.fn();
     const dom = await act(() => {
-      return render(<QueryWordComponent word={word} action={action} />);
+      return render(<QueryWordComponent word={word} postAnswerHandler={action} />);
     });
     const input = getById(dom.container, 'answer');
     expect(input).not.toBeNull();
@@ -65,7 +64,7 @@ describe('Should query stuff works', () => {
   test('Should be correct on good answer', async () => {
     const action = jest.fn();
     const dom = await act(() => {
-      return render(<QueryWordComponent word={word} action={action} />);
+      return render(<QueryWordComponent word={word} postAnswerHandler={action} />);
     });
     const input = getById(dom.container, 'answer');
     expect(input).not.toBeNull();

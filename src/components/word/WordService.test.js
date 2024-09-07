@@ -1,4 +1,5 @@
 import { exportForTesting, numberOfWords, randomWords } from './WordsService';
+import { LanguageManager, SetupLanguageManager } from '../../languages/LanguageManager';
 
 const testCSV =
   'pl,romanji,part,hiragana,katakana,kanji,group,pl_info\n' +
@@ -52,12 +53,37 @@ test('Transform CSV to JSON', () => {
   expect(result).toEqual(testData);
 });
 
+test('Should apply postLoadTransformer', () => {
+  randomWords({
+    count: 3,
+    loader: fakeLoader,
+    picker: (data, count) => data,
+    postLoadTransformer: (data) => {
+      return data.map((word) => {
+        return {
+          pl: word.pl,
+        };
+      });
+    },
+  }).then((data) => {
+    expect(data.length).toBe(3);
+    expect(data).toEqual([
+      { pl: 'auto', words: [{ pl: 'auto' }] },
+      { pl: 'babcia', words: [{ pl: 'babcia' }] },
+      { pl: 'bank', words: [{ pl: 'bank' }] },
+    ]);
+  });
+});
+
 test('Should apply filter on data', () => {
   randomWords({
     count: 3,
     filter: (word) => word.pl === 'auto',
     loader: fakeLoader,
-  }).then((data) => expect(data.length).toBe(1));
+  }).then((data) => {
+    expect(data.length).toBe(1);
+    expect(data[0].pl).toBe('auto');
+  });
 });
 
 test('Should group worlds by pl', () => {
@@ -138,14 +164,34 @@ test('Should group worlds by pl', () => {
     },
   ]);
 });
+
 describe('Communication test', () => {
   beforeEach(() => (global.fetch = jest.fn()));
 
-  test('Should fetch and transform', () => {
+  test('Should fetch and transform csv data', () => {
     jest.spyOn(global, 'fetch').mockImplementation(() =>
       Promise.resolve({
         ok: true,
         text: () => Promise.resolve(testCSV),
+      })
+    );
+    const { loadWords } = exportForTesting;
+    loadWords().then((data) => expect(data).toEqual(testData));
+  });
+
+  test('Should fetch and transform json data', () => {
+    SetupLanguageManager({
+      ...LanguageManager(),
+      dataFile: {
+        fileName: 'jp.csv',
+        dataType: 'json',
+      },
+    });
+    jest.spyOn(global, 'fetch').mockImplementation(() =>
+      Promise.resolve({
+        ok: true,
+        text: () => Promise.resolve(testCSV),
+        json: () => Promise.resolve(testData),
       })
     );
     const { loadWords } = exportForTesting;

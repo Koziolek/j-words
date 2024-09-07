@@ -1,54 +1,30 @@
 import React from 'react';
-import { toRomaji } from 'wanakana';
 import { v4 } from 'uuid';
 import PropTypes from 'prop-types';
 import './WordResult.css';
-
-const OptionalWordView = ({ text = '', prefix = '' }) => {
-  return <>{text !== '' ? prefix + '(' + text + ')' : ''}</>;
-};
-
-const WordView = ({ pl = '', kana = '', romanji = '', kanji = '', internalTag = 'div' }) => {
-  const InternalTag = internalTag;
-  return (
-    <InternalTag>
-      <samp className="word-result-pl">{pl}</samp>
-      <samp className="word-result-kana">
-        {kana}
-        <OptionalWordView text={kanji} prefix=" – " />
-      </samp>
-      <samp className="word-result-romanji">
-        <OptionalWordView text={romanji} />
-      </samp>
-    </InternalTag>
-  );
-};
+import { OptionalWordView } from './OptionalWordView';
+import { LanguageManager } from '../../languages/LanguageManager';
 
 const WordForms = ({ words = [], wrapperTag = 'div', internalTag = 'div' }) => {
   const WrapperTag = wrapperTag;
+  const WordTag = LanguageManager().wordView;
   return (
     <WrapperTag>
       {words.map((word) => (
-        <WordView
-          kana={word.hiragana ? word.hiragana : word.katakana}
-          kanji={word.kanji}
-          romanji={word.romanji}
-          pl={word.pl}
-          key={v4()}
-          internalTag={internalTag}
-        />
+        <WordTag word={word} key={v4()} internalTag={internalTag} />
       ))}
     </WrapperTag>
   );
 };
 
 const WordResult = ({ word, mode }) => {
+  const AnswerView = LanguageManager().answerView;
   return (
     <div className={mode + '-word-result word-result'}>
       {mode === 'bad' ? (
         <>
           <div>
-            <WordView kana={word.answer} romanji={toRomaji(word.answer)} pl={word.pl} />
+            <AnswerView answer={word.answer} word={word} />
           </div>
           <WordForms words={word.words} />
         </>
@@ -85,13 +61,6 @@ const WordResultComponent = ({ goodWords = [], badWords = [] }) => {
 OptionalWordView.propTypes = {
   text: PropTypes.string,
   prefix: PropTypes.string,
-};
-WordView.propTypes = {
-  pl: PropTypes.string,
-  kana: PropTypes.string,
-  romanji: PropTypes.string,
-  kanji: PropTypes.string,
-  internalTag: PropTypes.string,
 };
 WordForms.propTypes = {
   words: PropTypes.arrayOf(

@@ -4,6 +4,8 @@ import { useEffect, useRef, useState } from 'react';
 import LabeledInputComponent from '../commons/LabeledInputComponent';
 import HelpComponent from '../help/HelpComponent';
 import './Mode.css';
+import { SetupLanguageManager } from '../../languages/LanguageManager';
+import { Jp } from '../../languages/jp';
 
 const ModePicker = () => {
   const navigate = useNavigate();
@@ -14,6 +16,7 @@ const ModePicker = () => {
   }, [inputRef]);
 
   const startLesson = () => {
+    SetupLanguageManager(Jp);
     navigate('/nauka/' + max);
   };
 
@@ -26,7 +29,7 @@ const ModePicker = () => {
         text="Ile słów do nauki?"
         placeholder="Liczba słów"
         reference={inputRef}
-        action={(e) => setMax(e.target.value)}
+        onChange={(e) => setMax(e.target.value)}
         onEnter={() => startLesson()}
       />
       <button onClick={() => startLesson()} className="mode-button button-indigo">

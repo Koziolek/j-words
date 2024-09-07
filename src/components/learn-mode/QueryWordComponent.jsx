@@ -1,15 +1,14 @@
-import React from 'react';
-import { useState } from 'react';
-import { toKana } from 'wanakana';
+import React, { useState } from 'react';
 import LabeledInputComponent from '../commons/LabeledInputComponent';
 import PropTypes from 'prop-types';
+import { LanguageManager } from '../../languages/LanguageManager';
 
 const QueryWordComponent = ({
   word = {
     pl: '',
     words: [],
   },
-  action = (maybeCorrect, ans) => {
+  postAnswerHandler = (maybeCorrect, ans) => {
     if (maybeCorrect) {
       console.log('Correct!');
     } else {
@@ -17,25 +16,21 @@ const QueryWordComponent = ({
     }
   },
   reference = null,
+  checkAnswer = (answer, word) => LanguageManager().verifyAnswer(answer, word),
+  answerTranslator = (answer) => LanguageManager().translate(answer),
 }) => {
   const [answer, setAnswer] = useState('');
-  const translate = (value) => {
-    return toKana(value, { IMEMode: true });
-  };
-  const checkAnswer = (e) => {
+
+  const handleAnswer = (e) => {
     e.preventDefault();
-    if (answer.trim() === '') {
-      action(false, answer.trim());
-      setAnswer('');
-      return;
-    }
-    const kana = [];
-    for (let w in word.words) {
-      kana.push(word.words[w].hiragana.replaceAll(' ', '').trim());
-      kana.push(word.words[w].katakana.replaceAll(' ', '').trim());
-    }
-    action(kana.includes(answer.replaceAll(' ', '').trim()), answer.trim());
+    const maybeCorrect = checkAnswer(answer, word);
+    postAnswerHandler(maybeCorrect, answer.trim());
     setAnswer('');
+  };
+
+  const onChangeHandler = (e) => {
+    e.preventDefault();
+    setAnswer(answerTranslator(e.target.value));
   };
 
   return (
@@ -44,18 +39,14 @@ const QueryWordComponent = ({
         <div>{word.pl}</div>
         <div className="text-xs text-center">{word.words[0]?.pl_info}</div>
       </div>
-      <form onSubmit={checkAnswer}>
+      <form onSubmit={handleAnswer}>
         <LabeledInputComponent
           value={answer}
           id="answer"
           type="input"
           text="Odpowiedź"
           placeholder=""
-          action={(e) => {
-            e.preventDefault();
-            let translated = translate(e.target.value);
-            setAnswer(translated);
-          }}
+          onChange={onChangeHandler}
           reference={reference}
         />
       </form>
@@ -74,8 +65,10 @@ QueryWordComponent.propTypes = {
       })
     ),
   }).isRequired,
-  action: PropTypes.func,
+  postAnswerHandler: PropTypes.func,
   reference: PropTypes.oneOfType([PropTypes.func, PropTypes.shape({ current: PropTypes.any })]),
+  answerCheck: PropTypes.func,
+  answerTranslator: PropTypes.func,
 };
 
 export default QueryWordComponent;

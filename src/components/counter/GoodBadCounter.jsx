@@ -13,9 +13,9 @@ const GoodBadCounter = ({ good = 0, bad = 0, max = 0, separator = '/' }) => {
 };
 
 GoodBadCounter.propTypes = {
-  good: PropTypes.number.isRequired,
-  bad: PropTypes.number.isRequired,
-  max: PropTypes.number.isRequired,
+  good: PropTypes.number,
+  bad: PropTypes.number,
+  max: PropTypes.number,
   separator: PropTypes.string,
 };
 

@@ -9,3 +9,10 @@ test('Should render state', async () => {
   expect(screen.getByText(/1/i)).toBeInTheDocument();
   expect(screen.getByText(/:.*:/i)).toBeInTheDocument();
 });
+
+test('Should default state', async () => {
+  await act(() => {
+    return render(<GoodBadCounter />);
+  });
+  expect(screen.getAllByText(/0/i).length).toEqual(3);
+});

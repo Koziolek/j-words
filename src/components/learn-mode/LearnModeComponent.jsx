@@ -110,7 +110,7 @@ const LearnModeComponent = () => {
       <h2 className="learn-component-title">Nauka – {max} losowych słów</h2>
       {state.mode ? (
         <>
-          <QueryWordComponent word={state.word} action={nextWord} reference={inputRef} />
+          <QueryWordComponent word={state.word} postAnswerHandler={nextWord} reference={inputRef} />
           <GoodBadCounter
             good={state.counter.good}
             bad={state.counter.bad}

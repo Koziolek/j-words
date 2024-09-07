@@ -5,6 +5,9 @@
 import '@testing-library/jest-dom';
 
 import { queryByAttribute } from '@testing-library/react';
+import LearnModeComponent from './components/learn-mode/LearnModeComponent';
+import { SetupLanguageManager } from './languages/LanguageManager';
+import { Jp } from './languages/jp';
 
 export const getById = queryByAttribute.bind(null, 'id');
 export const getByAlt = queryByAttribute.bind(null, 'alt');
